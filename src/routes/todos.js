@@ -39,10 +39,10 @@ router.post('/', async (req, res) => {
 });
 
 router.patch('/:id', async (req, res) => {
-    const { title } = req.body;
+    const { title, done } = req.body;
     try {
         const result = await db.query(
-            'UPDATE todos SET title = COALESCE($1, title), done = COEALESCE($2, done) WHERE id = $3 RETURNING *', 
+            'UPDATE todos SET title = COALESCE($1, title), done = COALESCE($2, done) WHERE id = $3 RETURNING *', 
             [title, done, req.params.id]
         );
         if (result.rows.length === 0) {
